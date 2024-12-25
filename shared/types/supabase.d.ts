@@ -27,7 +27,7 @@ export type Database = {
         }
         Relationships: []
       }
-      questions: {
+      responses: {
         Row: {
           created_at: string
           id: string
@@ -60,27 +60,27 @@ export type Database = {
         Row: {
           created_at: string
           id: string
-          question_id: string
+          response_id: string
           session_id: string
         }
         Insert: {
           created_at?: string
           id?: string
-          question_id: string
+          response_id: string
           session_id: string
         }
         Update: {
           created_at?: string
           id?: string
-          question_id?: string
+          response_id?: string
           session_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "votes_question_id_fkey"
-            columns: ["question_id"]
+            foreignKeyName: "votes_response_id_fkey"
+            columns: ["response_id"]
             isOneToOne: false
-            referencedRelation: "questions"
+            referencedRelation: "responses"
             referencedColumns: ["id"]
           },
         ]

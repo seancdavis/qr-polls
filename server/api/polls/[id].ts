@@ -1,5 +1,7 @@
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, "id");
+  const url = getRequestURL(event);
+  const origin = url.host === "localhost" ? "http://localhost:3001" : url.origin;
 
   if (!id) {
     throw createError({
@@ -15,7 +17,7 @@ export default defineEventHandler(async (event) => {
         id,
         title,
         created_at,
-        questions (
+        responses (
           id,
           title,
           created_at,
@@ -24,7 +26,7 @@ export default defineEventHandler(async (event) => {
             id,
             created_at,
             session_id,
-            question_id
+            response_id
           )
         )
       `,
@@ -40,5 +42,18 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  return data;
+  const voteUrl = (response: any) => {
+    return `${origin}/api/responses/${response.id}/vote`;
+  };
+
+  return {
+    ...data,
+    responses: data.responses.map((response) => ({
+      ...response,
+      voteUrl: voteUrl(response),
+      qrCodeUrl: `https://api.qrserver.com/v1/create-qr-code/?format=svg&data=${encodeURIComponent(
+        voteUrl(response),
+      )}`,
+    })),
+  };
 });
