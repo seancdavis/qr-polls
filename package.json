@@ -1,5 +1,10 @@
 {
-  "name": "nuxt-app",
+  "name": "qr-polls",
+  "author": {
+    "name": "Sean C Davis",
+    "email": "hello@seancdavis.com",
+    "url": "https://www.seancdavis.com"
+  },
   "private": true,
   "type": "module",
   "scripts": {
