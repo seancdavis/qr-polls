@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const { data, error } = await supabase
+  const { data: response, error: responseError } = await supabase
     .from("responses")
     .select(
       `
@@ -35,16 +35,45 @@ export default defineEventHandler(async (event) => {
     .eq("id", id)
     .single();
 
-  if (error) {
-    console.error(error);
+  if (responseError) {
+    console.error(responseError);
     throw createError({
       statusCode: 404,
       statusMessage: "Response not found",
     });
   }
 
-  // Check if the response is already voted from the qrp_session_id
-  const hasVoted = data.votes.some((vote) => vote.session_id === sessionId);
+  // Check if the response is already voted. Retrieve all votes from responses
+  // from the same poll.
+  const { data: poll, error: pollError } = await supabase
+    .from("polls")
+    .select(
+      `
+        id,
+        responses (
+          id,
+          votes (
+            id,
+            session_id,
+            response_id
+          )
+        )
+      `,
+    )
+    .eq("id", response.poll_id)
+    .single();
+
+  if (pollError) {
+    console.error(pollError);
+    throw createError({
+      statusCode: 500,
+      statusMessage: "Failed to retrieve votes",
+    });
+  }
+
+  const votes = poll.responses.flatMap((response) => response.votes);
+
+  const hasVoted = votes.some((vote) => vote.session_id === sessionId);
   if (hasVoted) {
     return createError({
       statusCode: 400,
