@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { data } = await useFetch("/api/polls/1");
+const { data } = await useFetch("/api/polls/9387ee29-81a1-4f1e-b979-b31d8caade26");
 </script>
 
 <template>

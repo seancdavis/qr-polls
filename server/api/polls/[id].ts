@@ -40,5 +40,5 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  return { id, data };
+  return data;
 });
