@@ -43,8 +43,14 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  // TODO: Check if the response is already voted from the session_id (which
-  // requires that the session cookie is set)
+  // Check if the response is already voted from the qrp_session_id
+  const hasVoted = data.votes.some((vote) => vote.session_id === sessionId);
+  if (hasVoted) {
+    return createError({
+      statusCode: 400,
+      statusMessage: "You have already voted for this response",
+    });
+  }
 
   // Create the vote
   const { data: vote, error: voteError } = await supabase
