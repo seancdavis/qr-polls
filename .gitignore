@@ -22,6 +22,7 @@ logs
 .env
 .env.*
 !.env.example
+.envrc
 
 # Local Netlify folder
 .netlify
