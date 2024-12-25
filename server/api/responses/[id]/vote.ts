@@ -1,7 +1,13 @@
+import crypto from "crypto";
+
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, "id");
-  const url = getRequestURL(event);
-  const origin = url.host === "localhost" ? "http://localhost:3001" : url.origin;
+  let sessionId = getCookie(event, "qrp_session_id");
+
+  if (!sessionId) {
+    sessionId = crypto.randomUUID();
+    setCookie(event, "qrp_session_id", sessionId);
+  }
 
   if (!id) {
     throw createError({
@@ -43,7 +49,7 @@ export default defineEventHandler(async (event) => {
   // Create the vote
   const { data: vote, error: voteError } = await supabase
     .from("votes")
-    .insert({ session_id: "b44bbec7-128e-45be-847e-63c452536103", response_id: id });
+    .insert({ session_id: sessionId, response_id: id });
 
   if (voteError) {
     console.error(voteError);
