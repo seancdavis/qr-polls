@@ -43,7 +43,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const voteUrl = (response: any) => {
-    return `${origin}/api/responses/${response.id}/vote`;
+    return `${origin}/api/responses/${response.id}/create-vote`;
   };
 
   return {

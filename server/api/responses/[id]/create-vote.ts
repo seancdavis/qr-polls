@@ -16,6 +16,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
+  // Retrieve the response from the database
   const { data: response, error: responseError } = await supabase
     .from("responses")
     .select(
@@ -94,6 +95,6 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  // TODO: Redirect to a thank you page (perhaps with results)
+  // Redirect to a thank you page
   return sendRedirect(event, `/thank-you`);
 });
