@@ -95,5 +95,5 @@ export default defineEventHandler(async (event) => {
   }
 
   // TODO: Redirect to a thank you page (perhaps with results)
-  return sendRedirect(event, `/polls/${data.poll_id}`);
+  return sendRedirect(event, `/thank-you`);
 });
