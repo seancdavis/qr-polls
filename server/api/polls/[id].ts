@@ -47,7 +47,7 @@ export default defineEventHandler(async (event) => {
   };
 
   setResponseHeaders(event, {
-    "Netlify-Cache-Tag": data.id,
+    "Netlify-Cache-Tag": `poll-${data.id}-api`,
     "Cache-Control": "public, max-age=0, must-revalidate",
     "Netlify-CDN-Cache-Control": "public, max-age=300, stale-while-revalidate=31536000, durable",
   });

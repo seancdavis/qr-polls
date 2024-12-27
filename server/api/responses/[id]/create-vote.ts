@@ -1,4 +1,5 @@
 import crypto from "crypto";
+import { purgeCache } from "@netlify/functions";
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, "id");
@@ -94,6 +95,9 @@ export default defineEventHandler(async (event) => {
       statusMessage: "Failed to create vote",
     });
   }
+
+  // Purge the cache for the poll
+  await purgeCache({ tags: [`poll-${poll.id}-api`, `poll-${poll.id}-page`] });
 
   // Redirect to a thank you page
   return sendRedirect(event, `/thank-you`);

@@ -15,6 +15,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@netlify/functions": "^3.0.0",
     "@supabase/supabase-js": "^2.47.10",
     "nuxt": "^3.14.1592",
     "vue": "latest",

@@ -4,6 +4,11 @@ const { data } = await useFetch(`/api/polls/${route.params.id}`);
 
 const poll = ref(data);
 const responses = ref(poll.value?.responses);
+
+const { ssrContext } = useNuxtApp();
+if (ssrContext) {
+  ssrContext.event.node.res.setHeader("Netlify-Cache-Tag", `poll-${route.params.id}-page`);
+}
 </script>
 
 <template>
