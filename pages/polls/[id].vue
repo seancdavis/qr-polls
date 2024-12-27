@@ -8,6 +8,11 @@ const responses = ref(poll.value?.responses);
 const { ssrContext } = useNuxtApp();
 if (ssrContext) {
   ssrContext.event.node.res.setHeader("Netlify-Cache-Tag", `poll-${route.params.id}-page`);
+  ssrContext.event.node.res.setHeader("Cache-Control", "public, max-age=0, must-revalidate");
+  ssrContext.event.node.res.setHeader(
+    "Netlify-CDN-Cache-Control",
+    "public, max-age=300, stale-while-revalidate=31536000, durable",
+  );
 }
 </script>
 
