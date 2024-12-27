@@ -46,6 +46,12 @@ export default defineEventHandler(async (event) => {
     return `${origin}/api/responses/${response.id}/create-vote`;
   };
 
+  setResponseHeaders(event, {
+    "Netlify-Cache-Tag": data.id,
+    "Cache-Control": "public, max-age=0, must-revalidate",
+    "Netlify-CDN-Cache-Control": "public, max-age=300, stale-while-revalidate=31536000, durable",
+  });
+
   return {
     ...data,
     responses: data.responses.map((response) => ({
