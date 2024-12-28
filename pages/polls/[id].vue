@@ -1,9 +1,28 @@
 <script setup lang="ts">
 const route = useRoute();
-const { data } = await useFetch(`/api/polls/${route.params.id}`);
+const id = route.params.id;
 
+const { data } = await useFetch(`/api/polls/${id}`);
 const poll = ref(data);
-const responses = ref(poll.value?.responses);
+let responseData = ref(
+  poll.value?.responses?.map((response) => ({
+    ...response,
+    voteCount: response.votes.length,
+  })),
+);
+const responses = useState(() => responseData);
+
+async function refresh() {
+  const data = await $fetch(`/api/polls/${id}`);
+  const poll = ref(data);
+  responses.value = poll.value?.responses?.map((response) => ({
+    ...response,
+    voteCount: response.votes.length,
+  }));
+  setTimeout(refresh, 1000);
+}
+
+refresh();
 
 const cacheTagHeader = useResponseHeader("Netlify-Cache-Tag");
 cacheTagHeader.value = `poll-${route.params.id}-page`;
@@ -22,7 +41,7 @@ cdnCacheControlHeader.value = "public, max-age=300, stale-while-revalidate=31536
     <div class="grid grid-cols-2 gap-4">
       <div v-for="response in responses" :key="response.id">
         <h2>{{ response.title }}</h2>
-        <div>Votes: {{ response.votes.length }}</div>
+        <div>Votes: {{ response.voteCount }}</div>
         <img :src="response.qrCodeUrl" alt="QR Code" />
         <a :href="response.voteUrl" target="_blank" class="text-blue-500 underline">Vote</a>
       </div>
