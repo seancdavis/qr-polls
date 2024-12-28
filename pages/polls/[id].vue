@@ -39,13 +39,27 @@ cdnCacheControlHeader.value = "public, max-age=300, stale-while-revalidate=31536
 <template>
   <div v-if="poll == null">No data</div>
   <div v-else>
-    <h1 class="text-3xl font-bold underline mb-12">{{ poll.title }}</h1>
+    <div class="mb-16 pt-12 text-center">
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">{{ poll.title }}</h1>
+    </div>
     <div class="grid grid-cols-2 gap-4">
-      <div v-for="response in responses" :key="response.id">
-        <h2>{{ response.title }}</h2>
-        <div>Votes: {{ response.voteCount }}</div>
-        <img :src="response.qrCodeUrl" alt="QR Code" />
-        <a :href="response.voteUrl" target="_blank" class="text-blue-500 underline">Vote</a>
+      <div v-for="response in responses" :key="response.id" class="text-center">
+        <h2 class="text-2xl font-semibold mb-4">{{ response.title }}</h2>
+        <div class="my-6">
+          <div class="p-6 rounded-md bg-white inline-block">
+            <img :src="response.qrCodeUrl" alt="QR Code" class="max-w-md w-full" />
+          </div>
+        </div>
+        <div class="flex items-center justify-center gap-2 mb-6">
+          <span class="font-mono lowercase text-slate-400">[votes]</span>
+          <span class="text-xl font-semibold">{{ response.voteCount }}</span>
+        </div>
+        <a
+          :href="response.voteUrl"
+          target="_blank"
+          class="bg-emerald-400 rounded-md text-slate-800 font-semibold py-2 px-6 transition-colors hover:bg-emerald-500 duration-300"
+          >Record vote</a
+        >
       </div>
     </div>
   </div>
