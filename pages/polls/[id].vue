@@ -58,8 +58,9 @@ cdnCacheControlHeader.value = "public, max-age=300, stale-while-revalidate=31536
           :href="response.voteUrl"
           target="_blank"
           class="bg-emerald-400 rounded-md text-slate-800 font-semibold py-2 px-6 transition-colors hover:bg-emerald-500 duration-300"
-          >Record vote</a
         >
+          Record vote
+        </a>
       </div>
     </div>
   </div>
