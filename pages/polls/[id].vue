@@ -2,6 +2,7 @@
 const route = useRoute();
 const id = route.params.id;
 
+// Get the initial data when the page is loaded
 const { data } = await useFetch(`/api/polls/${id}`);
 const poll = ref(data);
 let responseData = ref(
@@ -12,6 +13,7 @@ let responseData = ref(
 );
 const responses = useState(() => responseData);
 
+// Refresh the response data every second
 async function refresh() {
   const data = await $fetch(`/api/polls/${id}`);
   const poll = ref(data);
@@ -21,9 +23,9 @@ async function refresh() {
   }));
   setTimeout(refresh, 1000);
 }
-
 refresh();
 
+// Set the cache headers
 const cacheTagHeader = useResponseHeader("Netlify-Cache-Tag");
 cacheTagHeader.value = `poll-${route.params.id}-page`;
 
