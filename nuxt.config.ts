@@ -5,5 +5,4 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
   modules: ["@nuxtjs/tailwindcss"],
-  debug: true,
 });
