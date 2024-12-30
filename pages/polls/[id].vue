@@ -23,7 +23,7 @@ async function refresh() {
   }));
   setTimeout(refresh, 1000);
 }
-refresh();
+await refresh();
 
 // Set the cache headers
 const cacheTagHeader = useResponseHeader("Netlify-Cache-Tag");
