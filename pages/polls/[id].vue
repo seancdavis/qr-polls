@@ -28,12 +28,6 @@ refresh();
 // Set the cache headers
 const cacheTagHeader = useResponseHeader("Netlify-Cache-Tag");
 cacheTagHeader.value = `poll-${route.params.id}-page`;
-
-const cacheControlHeader = useResponseHeader("Cache-Control");
-cacheControlHeader.value = "public, max-age=0, must-revalidate";
-
-const cdnCacheControlHeader = useResponseHeader("Netlify-CDN-Cache-Control");
-cdnCacheControlHeader.value = "public, max-age=300, stale-while-revalidate=31536000, durable";
 </script>
 
 <template>
