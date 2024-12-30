@@ -2,10 +2,6 @@
 const route = useRoute();
 const { id } = route.params;
 
-// Set the cache headers
-const cacheTagHeader = useResponseHeader("Netlify-Cache-Tag");
-cacheTagHeader.value = `poll-${id}-page`;
-
 // Get the initial data when the page is loaded
 const { data } = await useFetch(`/api/polls/${id}`);
 const poll = ref(data);
