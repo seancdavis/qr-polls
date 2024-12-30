@@ -12,11 +12,11 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss"],
   routeRules: {
     "/": {
-      static: true,
+      prerender: true,
       headers: staticCacheHeaders,
     },
     "/thank-you": {
-      static: true,
+      prerender: true,
       headers: staticCacheHeaders,
     },
     "/polls/**": {
