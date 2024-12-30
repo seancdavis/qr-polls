@@ -1,7 +1,7 @@
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, "id");
   const url = getRequestURL(event);
-  const origin = url.host === "localhost" ? "http://localhost:3001" : url.origin;
+  const origin = url.host === "localhost" ? "http://localhost:3000" : url.origin;
 
   if (!id) {
     throw createError({
