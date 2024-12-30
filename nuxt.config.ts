@@ -1,3 +1,8 @@
+const staticCacheHeaders = {
+  "Cache-Control": "public, max-age=0, must-revalidate",
+  "Netlify-CDN-Cache-Control": "public, max-age=300, stale-while-revalidate=31536000, durable",
+};
+
 export default defineNuxtConfig({
   compatibilityDate: "2024-12-24",
   devtools: { enabled: true },
@@ -8,16 +13,14 @@ export default defineNuxtConfig({
   routeRules: {
     "/": {
       static: true,
+      headers: staticCacheHeaders,
     },
     "/thank-you": {
       static: true,
+      headers: staticCacheHeaders,
     },
     "/polls/**": {
-      headers: {
-        "Cache-Control": "public, max-age=0, must-revalidate",
-        "Netlify-CDN-Cache-Control":
-          "public, max-age=300, stale-while-revalidate=31536000, durable",
-      },
+      headers: staticCacheHeaders,
     },
   },
 });
