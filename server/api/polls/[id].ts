@@ -60,6 +60,7 @@ export default defineEventHandler(async (event) => {
       qrCodeUrl: `https://api.qrserver.com/v1/create-qr-code/?format=svg&data=${encodeURIComponent(
         voteUrl(response),
       )}`,
+      voteCount: response.votes.length,
     })),
   };
 });
