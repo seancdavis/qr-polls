@@ -3,8 +3,8 @@ const route = useRoute();
 const { id } = route.params;
 
 // Get the initial data when the page is loaded
-const { data } = await useFetch(`/api/polls/${id}`);
-const poll = ref(data);
+const { data: poll } = await useFetch(`/api/polls/${id}`);
+// const poll = ref(data);
 // let responses = ref(
 //   poll.value?.responses?.map((response) => ({
 //     ...response,
