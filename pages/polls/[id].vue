@@ -14,16 +14,16 @@ let responseData = ref(
 const responses = useState(() => responseData);
 
 // Refresh the response data every second
-async function refresh() {
-  const data = await $fetch(`/api/polls/${id}`);
-  const poll = ref(data);
-  responses.value = poll.value?.responses?.map((response) => ({
-    ...response,
-    voteCount: response.votes.length,
-  }));
-  setTimeout(refresh, 1000);
-}
-await refresh();
+// async function refresh() {
+//   const data = await $fetch(`/api/polls/${id}`);
+//   const poll = ref(data);
+//   responses.value = poll.value?.responses?.map((response) => ({
+//     ...response,
+//     voteCount: response.votes.length,
+//   }));
+//   setTimeout(refresh, 1000);
+// }
+// await refresh();
 </script>
 
 <template>
