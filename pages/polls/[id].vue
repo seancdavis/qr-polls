@@ -5,13 +5,13 @@ const { id } = route.params;
 // Get the initial data when the page is loaded
 const { data } = await useFetch(`/api/polls/${id}`);
 const poll = ref(data);
-let responseData = ref(
+let responses = ref(
   poll.value?.responses?.map((response) => ({
     ...response,
     voteCount: response.votes.length,
   })),
 );
-const responses = useState(() => responseData);
+// const responses = useState(() => responseData);
 
 // Refresh the response data every second
 // async function refresh() {
