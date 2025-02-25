@@ -33,6 +33,18 @@ let responses = ref(
       <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">{{ poll.title }}</h1>
     </div>
     <div class="grid grid-cols-2 gap-4">
+      <div>
+        <code>data:</code>
+        <pre>{{ data }}</pre>
+      </div>
+      <div>
+        <code>poll:</code>
+        <pre>{{ poll }}</pre>
+      </div>
+      <div>
+        <code>responses:</code>
+        <pre>{{ responses }}</pre>
+      </div>
       <div v-for="response in responses" :key="response.id" class="text-center">
         <h2 class="text-2xl font-semibold mb-4">{{ response.title }}</h2>
         <div class="my-6">
