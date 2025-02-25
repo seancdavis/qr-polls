@@ -3,27 +3,9 @@ const route = useRoute();
 const { id } = route.params;
 
 // Get the initial data when the page is loaded
-const { data: poll } = await useFetch(`/api/polls/${id}`);
-// const poll = ref(data);
-// let responses = ref(
-//   poll.value?.responses?.map((response) => ({
-//     ...response,
-//     voteCount: response.votes.length,
-//   })),
-// );
-// const responses = useState(() => responseData);
-
+const { data: poll, refresh } = await useFetch(`/api/polls/${id}`);
 // Refresh the response data every second
-// async function refresh() {
-//   const data = await $fetch(`/api/polls/${id}`);
-//   const poll = ref(data);
-//   responses.value = poll.value?.responses?.map((response) => ({
-//     ...response,
-//     voteCount: response.votes.length,
-//   }));
-//   setTimeout(refresh, 1000);
-// }
-// await refresh();
+setInterval(refresh, 1000);
 </script>
 
 <template>
