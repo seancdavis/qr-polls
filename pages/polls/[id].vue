@@ -4,11 +4,15 @@ const { id } = route.params;
 
 // Get the initial data when the page is loaded
 const { data: poll, refresh } = await useFetch(`/api/polls/${id}`);
+// Set the cache headers with the initial response
+const cacheTagHeader = useResponseHeader("Netlify-Cache-Tag");
+cacheTagHeader.value = `poll-${id}-page`;
+const cacheControlHeader = useResponseHeader("Cache-Control");
+cacheControlHeader.value = "public, max-age=0, must-revalidate";
+const cdnCacheControlHeader = useResponseHeader("Netlify-CDN-Cache-Control");
+cdnCacheControlHeader.value = "public, max-age=300, stale-while-revalidate=31536000, durable";
 // Refresh the response data every second
 setInterval(refresh, 1000);
-// Set the cache header with the initial response
-const header = useResponseHeader("Netlify-Cache-Tag");
-header.value = `poll-${id}-page`;
 </script>
 
 <template>
