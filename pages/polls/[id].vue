@@ -6,6 +6,9 @@ const { id } = route.params;
 const { data: poll, refresh } = await useFetch(`/api/polls/${id}`);
 // Refresh the response data every second
 setInterval(refresh, 1000);
+// Set the cache header with the initial response
+const header = useResponseHeader("Netlify-Cache-Tag");
+header.value = `poll-${id}-page`;
 </script>
 
 <template>
